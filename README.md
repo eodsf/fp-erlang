@@ -5,3 +5,7 @@ Handy resources:
 
 Online Erlang REPL available here:
 https://repl.it/
+
+Brujo's blog:https://medium.com/erlang-battleground
+
+Details of the BEAM : https://github.com/happi/theBeamBook
