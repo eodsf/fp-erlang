@@ -1,6 +1,8 @@
 -module(recursion).
 -export([test_suite/0]).
 
+%as an aside, see this gist for a far more performant tail-recursive method:
+% https://gist.github.com/gorkaio/1cf3c12af3ec69265a1029c7d8e1cb25
 fib(0) -> 0;
 fib(1) -> 1;
 fib(N) when N > 1 ->
@@ -32,6 +34,8 @@ test_fib() ->
 % Define a function pieces so that pieces(N) tells you the maximum number of pieces into 
 % which you can cut a piece of paper with N straight line cuts.
 %Assumption : the paper is square or rectangular ;-)
+
+% note : someone on the course ref'd this as the inspiration for this question : http://www.jlmartin.faculty.ku.edu/MiniCollege2012/handout.pdf
 
 % The max # of pieces depends on how many 'spaces' in the overall paper the new line can bisect
 % pieces(0) == 1 (no cut, original paper (piece) intact)
