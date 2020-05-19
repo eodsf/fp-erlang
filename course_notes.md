@@ -91,12 +91,36 @@ Next, in a section called "Where Do I Begin", some general stategies are introdu
 (Brujo: "Tip: Remember that besides the type integer(), there is also pos_integer() and non_neg_integer().")
 
 In defining a 'take' function, N and the list are recursed over - very nice; and then looks at how a std lib function can
-be re-used (in this case lists:split)
-  (see  where1.erl & "Definingthetakefunction.mp4")
+be re-used (in this case lists:split)  
 In defining a 'nub' function, very nice strategies used to 'think of what supporting functions we need', and define them as we go.
   A clear decomposition of the problem into simpler terms with supporting functions instead of big case statements.
+In defining a palindrome function, the problem is first broken down into discrete steps:
+  - solve the 'literal palindrome' first - solve for only same case, no punctuation; first a 'shunt' func is defined to reverse a list,
+    which is then used to simply see if the reverse of the param is the same as the param
+  - then apply funcs 'nocaps' (transform) & 'nopunc' (filter) using function composition to the func above for the final solution.
+    (as noted, the 2 aforementioned functions can be combined, but readability suffers; filtering should be done first for efficiency if
+      this approach is taken).
 
-EOD HERE
+(see  where1.erl, where2.erl, where3.erl "Definingthetakefunction.mp4", "Definingthenubfunction.mp4", "Definingthepalindromefunction.mp4")
+
+In a special week 2 feedback video, Simon recaps the important concepts introduced w/ some live programming, inc encouraging more use
+of pattern matching for:
+ - testing for equality; and repeated vars
+ - distinguishing between cases
+ - extracting elements / components from structures
+ - makes it very clear about the components we're not interested in (by using underscores with them)
+Example :
+% List = [ {foo, 3}, {bar, 27}, {foo, 5} ]
+% define a func to pull out all values for foo; note that instead of A|As we can use {A,V} since we know that the head will contain a 
+% pair - an atom & a value ! Then we can easily distinguish between the 2 cases (a match or not on the head 1st pair ele w/ the 
+%       input, or not !
+```
+lookup(A,[]) -> [];
+lookup(A, [{A,V} | Xs])-> [V | lookup(A, Xs)];
+lookup(A, [{_B,_V} | Xs])-> [lookup(A, Xs)].
+```
+(https://www.youtube.com/watch?v=Xa_ixfEF7qk&feature=youtu.be)
+
 
 
 #H2 Pro Tips
