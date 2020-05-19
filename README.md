@@ -23,3 +23,7 @@ As an additional resource to the official docs, I cannot recommend the https://s
 https://ferd.ca/the-zen-of-erlang.html
 
 https://github.com/codeadict/fp_in_erlang
+
+https://elixirforum.com/t/immutability-explanation/27746/23
+
+https://ferd.ca/erlang-s-tail-recursion-is-not-a-silver-bullet.html
