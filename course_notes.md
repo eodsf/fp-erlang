@@ -121,10 +121,9 @@ lookup(A, [{_B,_V} | Xs])-> [lookup(A, Xs)].
 
 
 
-#H2 Pro Tips
-#H3 (mainly from the moderators)
+## Pro Tips (mainly from the moderators)
 
-#H4 On data types
+### On data types
 **Brujo Benavides:**
 "
 Since "a string" is "a list of integers", then there is no way to guarantee that a function returns one and not the other.
@@ -220,9 +219,9 @@ erlang:binary_to_existing_atom/2."
 **Simon ThompsonLEAD EDUCATOR**:
 "And just to confuse things, strings don't really exist in Erlang: they are "just" lists of ASCII codes …"
 
-#H4 On functions:
+### On functions:
 
-Brujo Benavides:
+**Brujo Benavides**:
 "
 Left a comment on the gist, but to make it a bit more visible… Named (i.e. not anonymous) functions (the ones written in modules) 
 can be passed around as first-class citizens, too… you just need to know the syntax:
@@ -234,7 +233,7 @@ fun a_module:a_function/2
 ^-- that's the function a_function with arity 2 from module a_module. NOTE: It must be exported for you to use it like that.
 "
 
-#H4 Pattern matching:
+### Pattern matching:
 (
 In response to this q:
 "
@@ -253,7 +252,7 @@ did not appear on the right hand side of the second definition and so had to rep
 That appears to be something of an inconsistency in the logic of the interpreter. Can someone please explain that. Thank you!
 "
 )
-Brujo Benavides:
+**Brujo Benavides**:
 "
 @DouglasLewit let me see if I can shed some light here…
 First, variables starting with underscores, are anonymous variables:
@@ -283,7 +282,7 @@ Does Erlang see (and therefore allow) is_leap/1 and is_leap/3 as two different a
 (only used internally to the module, not exported) a slightly different name?
 Thank you in advance for your time addressing these questions.
 ")
-Brujo Benavides:
+**Brujo Benavides**:
 "
 1. Yes, because what's on the left side can be a pattern (i.e. it might have unbound variables), therefore you can write stuff like…
 
@@ -295,8 +294,8 @@ Brujo Benavides:
 with different arities for auxiliary functions. I'm not sure why tho. I guess… because we can ;)
 "
 
-#H4 Lists:
-Brujo Benavides:
+### Lists:
+**Brujo Benavides**:
 "
 quick tips:
 1. instead of [0] ++ Acc... You can use [0|Acc] and build the list directly using cons.
@@ -304,8 +303,8 @@ quick tips:
 f(N, [A, B | _] = Acc) -> [A+B | Acc].
 "
 
-list matching tips:
-Brujo Benavides:
+#### List matching tips:
+**Brujo Benavides**:
 "
 With two elements or more… [X,Y|_]
 And… with one element or more… [_|_] <- I call this one, the robot butt :P
@@ -339,8 +338,8 @@ Another two examples for the wat-seekers out there…
 "a list"
 "
 
-#H4 General:
-Brujo Benavides:
+### General:
+**Brujo Benavides**:
 "
 A few notes regarding these exercises…
 
