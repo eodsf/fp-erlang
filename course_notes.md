@@ -1,11 +1,11 @@
-#H1 Comprehensive notes from the Erlang MOOC
+# Comprehensive notes from the Erlang MOOC
 
 This file captures important notes from the course, week by week, capturing the essence of the content from Prof Simon Thompson, 
 as well as insightful comments from one of the moderators from the EEF, Brujo Benavides (blog link in the readme).
 
 
-#H2 Week 1 - A tour of the language, intro to pattern matching
-#H3 Notes
+## Week 1 - A tour of the language, intro to pattern matching
+
 The first chunk of this week was focused on history, culture, setting up an environment.
 Coninuing into writing some simple functions, exporting them from the module, and calling them from the shell.
 
@@ -15,9 +15,8 @@ Moving on to the different types in the language :
 **Numbers** - *integers* (bignums w/ abritrarily large precision; bases can be specified as <base>#<number>) & *floats*.
 **Atoms** - they stand alone - just a piece of data, can be tested for equality, and **used for pattern matching**.
 **Booleans** - special atoms
-**Tuples** - a number of pieces of data; a common idiom : first field generally *describes* the type (eg, see the complex types used in exercises
-              such as circle, etc).
-              Tyoically hetrogeneous : diff types in diff fields.
+**Tuples** - a number of pieces of data; a common idiom : first field generally *describes* the type (eg, see the complex types used in exercises such as circle, etc).
+              Typically hetrogeneous : diff types in diff fields.
 **Lists** - a collection of values. *Typically* homogenous (all of the same type).
 (Although lists & tuples might appear to serve similar functionality (eg, they hold collections of values, which can 
   be of different types), they are used differently ... lists are built up one at a time)
@@ -39,8 +38,7 @@ as possible, before resorting to guards, and then case statements in the functio
 (Note : using **=:=** will ensure only the same terms match - it prevents surprises when attempting to match 1.0 (float) to 1 (int) 
   for ex)
 
-#H2 Week 2 - Recursion, lists
-#H3 Notes
+## Week 2 - Recursion, lists
 
 (
 If you're sure how a particular input to a function should be handled *let it fail* (eg, ensure it matches nothing); handle *expected*
