@@ -85,7 +85,10 @@ Revisiting the difference between lists & tuples:
  
 Next, in a section called "Where Do I Begin", some general stategies are introduced for defining functional programs through examples.
 **spec** is introduced:
+```
   -spec take(integer(),[T]) -> [T].
+```
+
 (Brujo: "Tip: Remember that besides the type integer(), there is also pos_integer() and non_neg_integer().")
 
 In defining a 'take' function, N and the list are recursed over - very nice; and then looks at how a std lib function can
