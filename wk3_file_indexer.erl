@@ -10,11 +10,11 @@
 %	(get_file_contents, get_all_lines & show_file_contents)
 
 % "The aim of this exercise is to index a text file, by line number.
-%  In solving this problem you’ll need to think about the different stages of 
+%  In solving this problem youâ€™ll need to think about the different stages of 
 %  processing of the data: you begin with a list of lines, each of which will 
 %  need to be broken into words, and those lines (and words) will need to be 
 %  associated with the corresponding line numbers. 
-%  So, thinking about useful intermediate stages – and helper functions – 
+%  So, thinking about useful intermediate stages â€“ and helper functions â€“ 
 %  should help you to make progress in solving the problem. 
 
 %  The output of the main function should be a list of entries consisting of a word
@@ -24,16 +24,16 @@
 
 %  To take the problem further, you might like to think about these ways of 
 %  refining the solution. 
-%	• Removing all short words (e.g. words of length less than 3) or all common
-%		words (you‘ll have to think about how to define these). 
-%	• Sorting the output so that the words occur in lexicographic order. 
-%	• Normalising the words so that capitalised ("Foo") and non-capitalised 
+%	â€¢ Removing all short words (e.g. words of length less than 3) or all common
+%		words (youâ€˜ll have to think about how to define these). 
+%	â€¢ Sorting the output so that the words occur in lexicographic order. 
+%	â€¢ Normalising the words so that capitalised ("Foo") and non-capitalised 
 %		versions ("foo") of a word are identified. 
-%	• Normalising so that common endings, plurals, etc. are identified. 
-%	• (Harder) Thinking how you could make the data representation more 
+%	â€¢ Normalising so that common endings, plurals, etc. are identified. 
+%	â€¢ (Harder) Thinking how you could make the data representation more 
 %	efficient than the one you first chose. This might be efficient for lookup 
 %	only, or for both creation and lookup. 
-%	• Can you think of other ways that you might extend your solution?
+%	â€¢ Can you think of other ways that you might extend your solution?
 
 % Exports the indexed words of the file as a list of entries indicating the 
 %   range of lines they appear on. Example of one entry in this list :
@@ -274,16 +274,6 @@ test_map_word() ->
    #{ "initial" := [5,1], "second" := [1]} = MUpdate2,
    pass.
    
-  
-test_map_words() ->
-   #{} = map_words([], 1, #{}),
-   #{"one" := [1]} = map_words(["one"], 1, #{}),
-   M = map_words(["initial", "second"], 1, #{}),
-   #{"initial" := [1], "second" := [1]} = M,
-   MUpdate = map_words(["initial"], 5, M),
-   #{"initial" := [5,1], "second" := [1]} = MUpdate,
-   pass.
-
 test_lowercase_words() ->
    ["this was a test"] = lowercase_words(["this Was A TesT"]),
    pass.
@@ -318,5 +308,4 @@ test_get_words_in_line() ->
     pass = test_strip_punc_in_words(),
     pass = test_lowercase_words(),
     pass = test_map_word(),
-    pass = test_map_words(),
     pass.
