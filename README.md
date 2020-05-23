@@ -9,7 +9,7 @@ https://repl.it/
 Learn You ... book: https://learnyousomeerlang.com/
 
 Brujo Benavides' blog: https://medium.com/erlang-battleground, https://medium.com/@elbrujohalcon
-                      
+Guidelines : https://github.com/inaka/erlang_guidelines                      
 
 Details of the BEAM : https://github.com/happi/theBeamBook
 
