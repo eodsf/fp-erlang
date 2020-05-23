@@ -1,5 +1,5 @@
 %% coding: latin-1
--module(file_indexer).
+-module(wk3_file_indexer).
 -export([get_file_contents/1,show_file_contents/1,
 	get_file_contents_by_line/1, test_suite/0]).
 
@@ -35,47 +35,69 @@
 %	only, or for both creation and lookup. 
 %	• Can you think of other ways that you might extend your solution?
 
-% Bugs to fix : i) original code - if the last line doesn't have a \n
-%			the last char is stripped from the content.
-
-
-
-% EOD HERE - INTIAL THOGHTS - should we use maps ?
-% we can process the list of lines using list recursion, pasing an acc 
-% so we know the line #, and for each line, access the words in the list.
-% the list of words can be 'iterated' by selecting X|Xs
-%	we could use a map to store/lookup words as we encounter them
-%		pushing the line # into the value of the map ele
-%			- the value will be a list of size 2, and we can
-%			just update the tail with the new line #
-
-
 % Exports the indexed words of the file as a list of entries indicating the 
 %   range of lines they appear on. Example of one entry in this list :
 %	{ "foo" , [{3,5},{7,7},{11,13}] }
 
 
 get_file_contents_by_line(Name) ->
-% this is a list, each ele being a line
-   AllLines = get_file_contents(Name),
-   process_line(AllLines).
+   LinesText = get_file_contents(Name),
+   MapOfWordsToListOfReversedRangeTuples = map_line_words(LinesText),
+   %io:format("Results : ~p ~n", [MapOfWordsToListOfReversedRangeTuples]),
+   build_output(MapOfWordsToListOfReversedRangeTuples).
+   %io:format("Results : ~p ~n", [Output]).
 
-process_line(Xs) -> process_line(Xs, 1, #{}).   
+% Build the output from the map provided : specifically, each key in the map
+% is build up as part of a tuple with its value; first the map value list needs to be reversed
 
-process_line([], _C, _Map) 	-> [];
-process_line([X|Xs], C, Map) 	->	
-	CurrWords = sanatize_words(get_words_in_line(X)),	
-	% io:format("Line : ~p : ~p ~p ~n", [C, X, CurrWords]),
-	map_words(CurrWords, C, Map),
+build_output(M) ->
+   build_output(M, []).
+build_output(M, L) ->
+   maps:fold(
+   	fun(K, V, _) ->
+   		Result = {K, reverse(V)},		% build the tuple
+   		io:format("~p ~n", [Result])   		
+	end, [], M).
 	
-   process_line(Xs, C+1, Map).
+	
+
+% Takes a list of all lines in a file, and returns a mapping of the all words 
+% to a list of tuples indicating the line ranges
+
+%-spec map_line_words([string()]) -> #{string() => [integer()]}.
+map_line_words(Xs) -> map_line_words(Xs, 1, #{}).   
+
+%-spec map_line_words([string()], integer(), #{string() => [integer()]}) 
+%						-> #{string() => [integer()]}.
+map_line_words([], _C, Map) 	-> Map;
+map_line_words([X|Xs], C, Map) 	->	
+	CurrWords = sanatize_words(
+				get_words_in_line(X)),	
+	% io:format("Line : ~p : ~p ~p ~n", [C, X, CurrWords]),
+	UpdatedMap = map_words(CurrWords, C, Map),
+	
+   map_line_words(Xs, C+1, UpdatedMap).
    
 
 % Convenience func to sanatize the list of words provided
 
 -spec sanatize_words([string()]) -> [string()].
 sanatize_words(Xs) ->
-   strip_punc_in_words(Xs).
+   	lowercase_words(
+   	   filter_small_words(
+     	      strip_punc_in_words(Xs))).
+	  
+% filter small words from a list
+filter_small_words([]) -> [];
+filter_small_words(Xs) -> filter_small_words(Xs, []).
+filter_small_words([], A) -> A;
+filter_small_words([X|Xs], A) ->
+   case (string:length(X) > 3) of
+      true -> 
+         filter_small_words(Xs, [X|A]);
+      false -> 
+         filter_small_words(Xs, A)
+   end.
 
 
 % Strip known punctuation from the supplied word, matching each char
@@ -83,7 +105,7 @@ sanatize_words(Xs) ->
 -spec strip_punc(string()) -> string().
 strip_punc(Word) -> 
 	lists:filter( fun(C) -> 
-			not lists:member(C, ".,\ ;:\t\n\'\"") 
+				not lists:member(C, ".,\ ;:\t\n\'\"") 
 			end, 
 		Word ).
 
@@ -94,6 +116,13 @@ strip_punc(Word) ->
 strip_punc_in_words([]) -> [];
 strip_punc_in_words(Words) -> 
    lists:map( fun(W) -> strip_punc(W) end,
+   		Words).
+
+% lowercase all words in the supplied list.
+-spec lowercase_words([string()]) -> [string()].
+lowercase_words([]) -> [];
+lowercase_words(Words) -> 
+   lists:map( fun(W) -> string:lowercase(W) end,
    		Words).
 
 % Update the provided map M, mapping W to a list of values (integers);
@@ -107,20 +136,24 @@ map_word(W, C, M) ->
    			[C|V]
    			end,
    		[C|[]], M).
-   
-   
-% Update the provided map M, mapping all Words to a list of values (integers);
-	% C is pre-pended to the values.
 
--spec map_words([string()], integer(), #{string() => [integer()]}) 
-	-> #{string() => [integer()]}.
+% map a word (key) to a range of lines it appears on (list of tuples)
+map_word_to_range_list(W, C, M) ->     
+   maps:update_with(W, fun(V) ->
+   			 create_or_update_ranges(V, C)
+   			end,
+   			create_or_update_ranges([], C),
+   			 M).
+
+% Update the provided map M for all words in the list, updating the values of range tuples for the word
+
+%-spec map_words([string()], integer(), #{string() => [{integer(),integer()}]}
+%	-> #{string() => [{integer(),integer()}]}.
 map_words([], _C, M) -> M;
-map_words(Words, C, M) -> 
-   %note : flatmap is not working with my tests, so using map & flatten  
-   List = lists:map( fun(W) -> map_word(W, C, M) end,
-   		Words),
-	lists:flatten(List).
-	
+map_words([X|Xs], C, M) -> 
+   UpdatedMap = map_word_to_range_list(X, C, M),
+   map_words(Xs, C, UpdatedMap).
+   	
 
 % Return the words in a string as a list
 	%uses a regex to split the line into a list of words
@@ -133,6 +166,34 @@ map_words(Words, C, M) ->
 -spec get_words_in_line(string()) -> [string()].
 get_words_in_line(Line) ->
    re:split(Line, " ", [{return, list}, trim]).
+
+
+% Update or create a range in the provided list given the line number.
+% We scan the list from the head, and check the ranges existing, if any.
+% If none, we create one with the line number as start & end of the range.
+% If found, we inspect the range end - if it's equal, we exit;
+% if it is contiguous with the provided line number, we update it, 
+% otherwise we insert a new tuple at head and return.
+% This assumes the list is in reverse order (head == last inserted pair)
+
+-spec create_or_update_ranges([{integer(),integer()}], integer()) ->
+							[{integer(),integer()}].
+create_or_update_ranges([], I) -> 
+   %no ranges yet, create one.
+   [{I,I}];				
+create_or_update_ranges([{H,I}|Xs], I) -> 
+   % the end range in the tuple at head matched our input, nothing to do, return the list
+   [{H,I}|Xs];			
+   % here we use a pattern match to indicate the end range is not the same as 
+   % the provided integer AND a guard clause that satisfies the condition
+   % that the provided int is contiguous; this saves us a case statement in the
+   % function body, and simplifies our last function clause !
+create_or_update_ranges([{H,I}|Xs], J) when (I+1 == J) -> 
+   % update the tuple with the new end & return.  
+   [{H,J}|Xs];
+create_or_update_ranges(Xs, J) ->
+   %all other matches have failed, simply concat a new tuple to head
+   [{J,J}|Xs].   
 
 
 % Get the contents of a text file into a list of lines.
@@ -169,8 +230,40 @@ show_file_contents([L|Ls]) ->
     show_file_contents(Ls);
  show_file_contents([]) ->
     ok.    
+    
+reverse(Xs) ->
+    shunt(Xs,[]).
+
+shunt([],Ys) ->
+    Ys;
+shunt([X|Xs],Ys) ->
+    shunt(Xs,[X|Ys]).
+   
 
 % ======== TESTS ========
+test_map_word_to_range_list() ->
+   M = map_word_to_range_list("Getting", 1, #{}),
+   #{"Getting" := [{1,1}]} = M,
+   MUpdated = map_word_to_range_list("Getting", 2, M),
+   #{"Getting" := [{1,2}]} = MUpdated,
+   MUpdated2 = map_word_to_range_list("This", 10, MUpdated),
+   [{1,2}] = maps:get("Getting", MUpdated2),
+   [{10,10}] = maps:get("This", MUpdated2),
+   MUpdated3 = map_word_to_range_list("This", 12, MUpdated2),
+   [{1,2}] = maps:get("Getting", MUpdated3),
+   [{12,12},{10,10}] = maps:get("This", MUpdated3),
+   pass.
+
+  test_create_or_update_ranges() ->
+   	%empty list, a new range is created
+      [{1,1}] = create_or_update_ranges([],1),      
+      	%the end range is the same as the int provided, no change
+      [{2,2}] = create_or_update_ranges([{2,2}],2),
+      	%the end range is less and contiguous to the int provided, end range updated
+      [{2,3}] = create_or_update_ranges([{2,2}],3),
+      	%the end range is not contiguous, a new tuple should be created
+      [{4,4},{2,2}] = create_or_update_ranges([{2,2}],4),
+      pass.
 
 test_map_word() ->
    M = map_word("initial", 1, #{}),
@@ -181,16 +274,23 @@ test_map_word() ->
    #{ "initial" := [5,1], "second" := [1]} = MUpdate2,
    pass.
    
-   
+  
 test_map_words() ->
    #{} = map_words([], 1, #{}),
-   [#{"one" := [1]}] = map_words(["one"], 1, #{}),
+   #{"one" := [1]} = map_words(["one"], 1, #{}),
    M = map_words(["initial", "second"], 1, #{}),
    #{"initial" := [1], "second" := [1]} = M,
    MUpdate = map_words(["initial"], 5, M),
    #{"initial" := [5,1], "second" := [1]} = MUpdate,
    pass.
-   
+
+test_lowercase_words() ->
+   ["this was a test"] = lowercase_words(["this Was A TesT"]),
+   pass.
+
+test_filter_small_words() ->
+   ["test","this"] = filter_small_words(["this", "is", "a", "test"]),
+   pass.
    
 test_strip_punc() ->
    "PlsStriiMe" = strip_punc("Pls'Stri;i.Me,"),
@@ -200,7 +300,6 @@ test_strip_punc_in_words() ->
    ["PlsStri", "iMe"] = strip_punc_in_words(["Pls'Stri", ";i.Me"]),
    pass.
 
-%TODO - we will need to handle some of these cases
 test_get_words_in_line() ->
    ["sam", "i", "am"] = get_words_in_line("sam i am"),
    ["trailing", "punc."] = get_words_in_line("trailing punc."),
@@ -208,11 +307,16 @@ test_get_words_in_line() ->
    ["trailing", ":"] = get_words_in_line("trailing :"),
    pass.
    
+      
 % ======== TEST SUITE ========
  test_suite() ->
+    pass = test_map_word_to_range_list(),
+    pass = test_filter_small_words(),
+    pass = test_create_or_update_ranges(),
     pass = test_get_words_in_line(),   
     pass = test_strip_punc(),
     pass = test_strip_punc_in_words(),
+    pass = test_lowercase_words(),
     pass = test_map_word(),
     pass = test_map_words(),
     pass.
