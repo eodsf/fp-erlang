@@ -130,6 +130,9 @@ Moving onto discsusion of testing, with the std framework EUnit, and property ba
   https://gist.github.com/efcasado/3df8f3f1e33eaa488019
   https://propertesting.com/
   https://medium.com/erlang-battleground/property-based-testing-erlang-elixir-de72ad24966b
+  
+Revisiting types ... since Erlang is weakly typed, it's adviasble to lean on some tools such as Typer & Dialyzer to try & minimize the occurrence of runtime type errors.
+(see "Types for functional programs FL version1.mp4")
 
 
 
