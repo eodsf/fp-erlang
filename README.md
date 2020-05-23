@@ -8,7 +8,8 @@ https://repl.it/
 
 Learn You ... book: https://learnyousomeerlang.com/
 
-Brujo Benavides' blog: https://medium.com/erlang-battleground
+Brujo Benavides' blog: https://medium.com/erlang-battleground, https://medium.com/@elbrujohalcon
+                      
 
 Details of the BEAM : https://github.com/happi/theBeamBook
 
