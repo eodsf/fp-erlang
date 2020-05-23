@@ -122,6 +122,16 @@ lookup(A, [{_B,_V} | Xs])-> [lookup(A, Xs)].
 ```
 (https://www.youtube.com/watch?v=Xa_ixfEF7qk&feature=youtu.be)
 
+## Week 3
+Started out with an assignment to write a file indexer. More challenging than the previous exercises, and time-consuming ;-)
+Moving onto discsusion of testing, with the std framework EUnit, and property based testing (commercial & OS [QuickCheck Mini & Proper]). Some refs:
+  https://proper-testing.github.io/
+  http://www.quviq.com/downloads/
+  https://gist.github.com/efcasado/3df8f3f1e33eaa488019
+  https://propertesting.com/
+  https://medium.com/erlang-battleground/property-based-testing-erlang-elixir-de72ad24966b
+
+
 
 
 ## Pro Tips (mainly from the moderators)
