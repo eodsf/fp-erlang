@@ -25,6 +25,8 @@ https://ferd.ca/the-zen-of-erlang.html
 
 https://github.com/codeadict/fp_in_erlang
 
+https://www.metabrew.com/article/erlang-talk-at-london-hackspace
+
 https://elixirforum.com/t/immutability-explanation/27746/23
 
 https://ferd.ca/erlang-s-tail-recursion-is-not-a-silver-bullet.html
