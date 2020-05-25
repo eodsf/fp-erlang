@@ -133,6 +133,9 @@ Moving onto discsusion of testing, with the std framework EUnit, and property ba
   
 Revisiting types ... since Erlang is weakly typed, it's adviasble to lean on some tools such as Typer & Dialyzer to try & minimize the occurrence of runtime type errors.
 (see "Types for functional programs FL version1.mp4")
+A lot of this week was small assignments to consolidate what was learned in the first two weeks : lists & how they are the workhorses 
+of and can be used in recursion.
+Summing up video: https://www.youtube.com/watch?v=BUZAcnCMl30&feature=youtu.be
 
 
 
