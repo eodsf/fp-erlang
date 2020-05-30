@@ -137,7 +137,13 @@ A lot of this week was small assignments to consolidate what was learned in the 
 of and can be used in recursion.
 Summing up video: https://www.youtube.com/watch?v=BUZAcnCMl30&feature=youtu.be
 
+## Week 4
+This week started out introducing higher order functions with some exercises, moving onto a fun one around a ROck,Paper,Scissors implementation.
+Then, picking up some speed, we encounter currying/partial application, and some uses of that.
+The exercises are starting to get a little more complicated now, and need some thought. I had some difficulty completing 'iterate' from the 'functions as results in practice' step (https://github.com/eodsf/fp-erlang/blob/master/wk4_funs_as_results.erl)
+  [I may want to check out some of the other submissions that looked good : https://gist.github.com/danutchindris/c82d95988e4869e7c36762bbef230932, https://github.com/abratashov/fp-erl/blob/master/tasks/game/functions.erl, https://gist.github.com/fjpse/66db33acfb5739e8d29f8dee5cc52d1a, especially this one : https://github.com/nycholas/nycholas/blob/master/courses/futurelearn/functional-programming-erlang/w4s11/hof.erl).
 
+Step 11, 'Strategies exercises' builds on the HOF exercises to define strategies for the RPS game - some simple strategies are provided in rps.erl.zip (echo opponents last move, always play 'rock').
 
 
 ## Pro Tips (mainly from the moderators)
