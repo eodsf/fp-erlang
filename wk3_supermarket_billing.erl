@@ -11,7 +11,7 @@
 %from a list of barcodes and the database.
 %To take the problem further you might like to add these features:
 % - You are asked to add a discount for multiple buys of sherry: for every two 
-%	bottles bought, there is a £1.00 discount.
+%	bottles bought, there is a Â£1.00 discount.
 % - Design functions which update the database of bar codes. You will need a 
 %	function to add new information while removing any entry for the same 
 %	bar code.
@@ -93,6 +93,7 @@ update_inventory([{B,I,P}|Xs], M) ->
    UpdatedMap = update_inventory_item(B, {I, P}, M),
    update_inventory(Xs, UpdatedMap).
     
+% Note : Brujo prefers this form for update : M#{B => IP}
 update_inventory_item(B, IP, M) ->
    maps:update_with(B, fun(_V) ->
    			IP
