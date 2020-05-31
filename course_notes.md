@@ -148,6 +148,12 @@ The follow-on steps were some discussion & feedback vids, and a quiz, and conclu
 
 Additional summing up video : https://www.youtube.com/watch?v=TsgAtVnn-1M&feature=youtu.be
 
+Additional resources mentioned:
+OCaml Mooc : https://www.fun-mooc.fr/courses/course-v1:parisdiderot+56002+session04/about
+OCaml Book : https://realworldocaml.org/
+Simon's Haskell book : https://www.vitalsource.com/products/haskell-simon-thompson-v9781292127576
+Haskell 'Learn...' book : http://learnyouahaskell.com/
+
 ## Pro Tips (mainly from the moderators)
 
 ### On data types
