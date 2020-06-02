@@ -15,6 +15,11 @@ Guidelines : https://github.com/inaka/erlang_guidelines
 Details of the BEAM : https://github.com/happi/theBeamBook
 
 Adopting Erlang book: https://adoptingerlang.org/
+https://github.com/adoptingerlang/adoptingerlang
+"Adopting Erlang is an ongoing effort to gather all the resources that will help you use Erlang in a business. The booksite is divided in three sections focusing particularly on Erlang/OTP’s higher level concepts in the current open source ecosystem, how to use it in production (while setting up a pipeline for continuous development and delivery), and how to build a team when you’re starting from scratch"
+
+Erlang In Anger:
+https://github.com/heroku/erlang-in-anger
 
 Erlang Master Class vid series w/ Prof Thompson : https://www.cs.kent.ac.uk/ErlangMasterClasses/
 
