@@ -37,8 +37,8 @@ https://elixirforum.com/t/immutability-explanation/27746/23
 
 https://ferd.ca/erlang-s-tail-recursion-is-not-a-silver-bullet.html
 
-__Debugigng__
-One of the course participants highly recomments this debguuer:
+__Debugging__
+One of the course participants highly recomments this debugger:
 https://github.com/massemanet/redbug
 "
 Personally I don't agree that a debugger is not needed. When I'm working on someone else's code, which I do a lot, the first thing I do is install redbug (https://github.com/massemanet/redbug). It makes it very straightfoward to monitor what the code does in the real world and it's much much easier to use than the Erlang debug http://erlang.org/doc/man/dbg.html
